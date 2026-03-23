@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Rey del Pancho 🌭</title>
+<link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amarillo: #FFD600;
+    --rojo: #E8202A;
+    --naranja: #FF6B00;
+    --crema: #FFF8E7;
+    --oscuro: #1A0A00;
+    --verde: #2ECC40;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--crema);
+    color: var(--oscuro);
+    overflow-x: hidden;
+  }
+
+  /* ── FONDO ANIMADO ── */
+  .bg-pattern {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: linear-gradient(135deg, #fff8e7 0%, #fff0cc 100%);
+  }
+  .bg-pattern span {
+    position: absolute;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    animation: flotar linear infinite;
+    opacity: 0.12;
+    user-select: none;
+  }
+  @keyframes flotar {
+    0%   { transform: translateY(110vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--rojo);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  }
+  .logo {
+    font-family: 'Boogaloo', cursive;
+    font-size: 1.9rem;
+    color: var(--amarillo);
+    text-shadow: 2px 2px 0 var(--oscuro);
+    letter-spacing: 1px;
+  }
+  .logo span { color: #fff; }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  nav ul a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .95rem;
+    letter-spacing: .5px;
+    transition: color .2s;
+  }
+  nav ul a:hover { color: var(--amarillo); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  .hero-inner { max-width: 750px; }
+  .badge {
+    display: inline-block;
+    background: var(--rojo);
+    color: #fff;
+    font-weight: 900;
+    font-size: .85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: .35rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    animation: pulso 2s ease-in-out infinite;
+  }
+  @keyframes pulso {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+  }
+  h1 {
+    font-family: 'Boogaloo', cursive;
+    font-size: clamp(3.2rem, 9vw, 6.5rem);
+    line-height: 1;
+    color: var(--oscuro);
+    text-shadow: 4px 4px 0 var(--amarillo), 7px 7px 0 var(--naranja);
+    margin-bottom: 1rem;
+  }
+  .hero-sub {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-inline: auto;
+  }
+  .hero-img-wrap {
+    position: relative;
+    display: inline-block;
+    margin: 1.5rem 0 2rem;
+    animation: balanceo 3s ease-in-out infinite;
+  }
+  @keyframes balanceo {
+    0%,100% { transform: rotate(-2deg) translateY(0); }
+    50%      { transform: rotate(2deg) translateY(-12px); }
+  }
+  .hero-img-wrap img {
+    width: clamp(260px, 45vw, 480px);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25), 0 0 0 6px var(--amarillo), 0 0 0 12px var(--rojo);
+    display: block;
+  }
+  .sticker {
+    position: absolute;
+    font-family: 'Boogaloo', cursive;
+    font-size: 1.1rem;
+    padding: .4rem .9rem;
+    border-radius: 50px;
+    font-weight: 700;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.2);
+  }
+  .sticker-1 {
+    top: -14px; right: -20px;
+    background: var(--amarillo);
+    color: var(--oscuro);
+    transform: rotate(12deg);
+    animation: wiggle 2.5s ease-in-out infinite;
+  }
+  .sticker-2 {
+    bottom: 10px; left: -24px;
+    background: var(--rojo);
+    color: #fff;
+    transform: rotate(-8deg);
+    animation: wiggle 3s ease-in-out infinite reverse;
+  }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(12deg) scale(1); }
+    50%      { transform: rotate(14deg) scale(1.08); }
+  }
+  .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .9rem 2.2rem;
+    border-radius: 50px;
+    font-family: 'Boogaloo', cursive;
+    font-size: 1.25rem;
+    letter-spacing: .5px;
+    text-decoration: none;
+    transition: transform .18s, box-shadow .18s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn:hover { transform: translateY(-3px) scale(1.04); }
+  .btn-primary {
+    background: var(--rojo);
+    color: #fff;
+    box-shadow: 0 6px 0 #9a0000, 0 10px 30px rgba(232,32,42,.35);
+  }
+  .btn-primary:hover { box-shadow: 0 9px 0 #9a0000, 0 14px 35px rgba(232,32,42,.4); }
+  .btn-secondary {
+    background: var(--amarillo);
+    color: var(--oscuro);
+    box-shadow: 0 6px 0 #b89400, 0 10px 30px rgba(255,214,0,.35);
+  }
+  .btn-secondary:hover { box-shadow: 0 9px 0 #b89400; }
+
+  /* ── SECCIÓN COMÚN ── */
+  section { position: relative; z-index: 1; padding: 5rem 1.5rem; }
+  .section-title {
+    text-align: center;
+    font-family: 'Boogaloo', cursive;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: .4rem;
+  }
+  .section-title span { color: var(--rojo); }
+  .section-sub {
+    text-align: center;
+    color: #777;
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+  }
+  .divider {
+    width: 80px; height: 5px;
+    background: linear-gradient(90deg, var(--rojo), var(--amarillo));
+    border-radius: 10px;
+    margin: .6rem auto 0;
+  }
+
+  /* ── MENÚ ── */
+  #menu { background: #fff; }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: var(--crema);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,.1);
+    transition: transform .25s, box-shadow .25s;
+    position: relative;
+  }
+  .card:hover { transform: translateY(-8px) rotate(1deg); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+  .card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  .card-body { padding: 1.2rem 1.4rem 1.6rem; }
+  .card-tag {
+    background: var(--amarillo);
+    color: var(--oscuro);
+    font-size: .75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: .2rem .7rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: .6rem;
+  }
+  .card h3 {
+    font-family: 'Boogaloo', cursive;
+    font-size: 1.5rem;
+    margin-bottom: .4rem;
+  }
+  .card p { font-size: .9rem; color: #666; line-height: 1.5; margin-bottom: .8rem; }
+  .price {
+    font-family: 'Boogaloo', cursive;
+    font-size: 1.7rem;
+    color: var(--rojo);
+  }
+  .price small { font-size: 1rem; color: #aaa; text-decoration: line-through; margin-left: .4rem; }
+  .card-badge {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: var(--rojo);
+    color: #fff;
+    font-weight: 900;
+    font-size: .78rem;
+    padding: .3rem .7rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+  }
+
+  /* placeholder images via unsplash */
+  .img-hotdog   { background: url('https://images.unsplash.com/photo-1612392062631-4dc3e2dfd3aa?w=600&q=80') center/cover; }
+  .img-combo    { background: url('https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=600&q=80') center/cover; }
+  .img-papas    { background: url('https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80') center/cover; }
+  .img-gaseosa  { background: url('https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80') center/cover; }
+
+  /* ── POR QUÉ ELEGIRNOS ── */
+  #nosotros { background: var(--rojo); color: #fff; }
+  #nosotros .section-title { color: #fff; }
+  #nosotros .section-title span { color: var(--amarillo); }
+  #nosotros .section-sub { color: rgba(255,255,255,.8); }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .feat {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: rgba(255,255,255,.12);
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    transition: background .2s;
+  }
+  .feat:hover { background: rgba(255,255,255,.2); }
+  .feat-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+  .feat h4 { font-family: 'Boogaloo', cursive; font-size: 1.4rem; margin-bottom: .5rem; }
+  .feat p { font-size: .9rem; opacity: .85; line-height: 1.5; }
+
+  /* ── GALERÍA ── */
+  #galeria { background: var(--crema); }
+  .gallery-strip {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    scroll-snap-type: x mandatory;
+  }
+  .gallery-strip::-webkit-scrollbar { height: 6px; }
+  .gallery-strip::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 10px; }
+  .gallery-item {
+    flex: 0 0 260px;
+    height: 220px;
+    border-radius: 20px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: 0 6px 20px rgba(0,0,0,.15);
+    transition: transform .25s;
+  }
+  .gallery-item:hover { transform: scale(1.04); }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ── CONTACTO / PEDIDOS ── */
+  #pedidos { background: #fff; }
+  .pedidos-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--crema);
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,.07);
+  }
+  .info-item .icon { font-size: 1.8rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--oscuro);
+    color: rgba(255,255,255,.7);
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  footer .foot-logo {
+    font-family: 'Boogaloo', cursive;
+    font-size: 2rem;
+    color: var(--amarillo);
+    margin-bottom: .4rem;
+  }
+  footer p { font-size: .85rem; }
+  footer a { color: var(--amarillo); text-decoration: none; }
+
+  /* ── WHATSAPP FLOTANTE ── */
+  .wa-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .85rem 1.5rem .85rem 1rem;
+    text-decoration: none;
+    font-family: 'Boogaloo', cursive;
+    font-size: 1.15rem;
+    box-shadow: 0 6px 24px rgba(37,211,102,.55), 0 0 0 0 rgba(37,211,102,.5);
+    animation: wa-pulse 2.5s ease-in-out infinite;
+    transition: transform .2s;
+  }
+  .wa-btn:hover { transform: scale(1.08); }
+  .wa-btn svg { width: 30px; height: 30px; fill: #fff; flex-shrink: 0; }
+  @keyframes wa-pulse {
+    0%   { box-shadow: 0 6px 24px rgba(37,211,102,.55), 0 0 0 0   rgba(37,211,102,.5); }
+    70%  { box-shadow: 0 6px 24px rgba(37,211,102,.55), 0 0 0 16px rgba(37,211,102,0); }
+    100% { box-shadow: 0 6px 24px rgba(37,211,102,.55), 0 0 0 0   rgba(37,211,102,0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:600px) {
+    nav ul { display: none; }
+    .wa-btn span { display: none; }
+    .wa-btn { padding: 1rem; border-radius: 50%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── FONDO ANIMADO ── -->
+<div class="bg-pattern" id="bgPattern"></div>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="logo">🌭 El Rey del <span>Pancho</span></div>
+  <ul>
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#galeria">Fotos</a></li>
+    <li><a href="#pedidos">Pedidos</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="badge">🔥 Abierto Ahora · Delivery Disponible</div>
+    <h1>El Mejor Pancho de la Ciudad</h1>
+    <p class="hero-sub">Jugosos, cargados y listos en minutos. Porque el hambre no espera.</p>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1612392062631-4dc3e2dfd3aa?w=900&q=85" alt="Pancho delicioso">
+      <span class="sticker sticker-1">¡Recién Hechos! 🔥</span>
+      <span class="sticker sticker-2">Desde $800 🌭</span>
+    </div>
+    <div class="cta-group">
+      <a href="https://wa.me/5491112345678?text=Hola!%20Quiero%20hacer%20un%20pedido%20🌭" class="btn btn-primary" target="_blank">
+        🛵 Pedir Ahora
+      </a>
+      <a href="#menu" class="btn btn-secondary">📋 Ver Menú</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENÚ ── -->
+<section id="menu">
+  <div class="section-title">Nuestro <span>Menú</span></div>
+  <div class="divider"></div>
+  <p class="section-sub">Todo hecho al momento con ingredientes frescos</p>
+
+  <div class="menu-grid">
+
+    <div class="card">
+      <div class="card-badge">⭐ El Más Pedido</div>
+      <div class="card-img img-hotdog"></div>
+      <div class="card-body">
+        <span class="card-tag">Clásico</span>
+        <h3>Pancho Completo</h3>
+        <p>Salchicha premium, mostaza, kétchup, mayonesa y cebolla crocante.</p>
+        <div class="price">$1.200</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img img-combo"></div>
+      <div class="card-body">
+        <span class="card-tag">🔥 Combo</span>
+        <h3>Combo Pancho + Gaseosa</h3>
+        <p>Pancho a elección más una gaseosa 500ml. La dupla perfecta.</p>
+        <div class="price">$1.800 <small>$2.100</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img img-papas"></div>
+      <div class="card-body">
+        <span class="card-tag">Extra</span>
+        <h3>Papas Fritas</h3>
+        <p>Crujientes por fuera, tiernas por dentro. Con salsa a elección.</p>
+        <div class="price">$900</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-badge">🌶️ Nuevo</div>
+      <div class="card-img" style="background:url('https://images.unsplash.com/photo-1587691592099-24045742c181?w=600&q=80') center/cover; height:200px;"></div>
+      <div class="card-body">
+        <span class="card-tag">Especial</span>
+        <h3>Pancho XXL</h3>
+        <p>Doble salchicha, queso derretido, jalapeños y salsa secreta de la casa.</p>
+        <div class="price">$1.900</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── POR QUÉ ELEGIRNOS ── -->
+<section id="nosotros">
+  <div class="section-title">¿Por qué <span>elegirnos?</span></div>
+  <div class="divider" style="background:linear-gradient(90deg,#fff,#FFD600)"></div>
+  <p class="section-sub">Más de 10 años poniendo sabor en cada bocado</p>
+  <div class="features">
+    <div class="feat">
+      <span class="feat-icon">⚡</span>
+      <h4>Entrega Rápida</h4>
+      <p>Delivery en menos de 30 minutos o el próximo es gratis.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🥩</span>
+      <h4>Ingredientes Frescos</h4>
+      <p>Salchichas de primera, pan artesanal y salsas caseras todos los días.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">💰</span>
+      <h4>Precio Justo</h4>
+      <p>El mejor pancho de la zona sin que se note en el bolsillo.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🧡</span>
+      <h4>Hecho con Amor</h4>
+      <p>Negocio familiar de barrio con el alma puesta en cada pedido.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERÍA ── -->
+<section id="galeria">
+  <div class="section-title">Mirá <span>qué rico</span></div>
+  <div class="divider"></div>
+  <p class="section-sub">Nuestros clientes dicen que las fotos no hacen justicia 😋</p>
+  <div class="gallery-strip">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1612392062631-4dc3e2dfd3aa?w=600&q=80" alt="Pancho"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Local"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="Combo"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" alt="Papas"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=600&q=80" alt="Gaseosa"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1587691592099-24045742c181?w=600&q=80" alt="Especial"></div>
+  </div>
+</section>
+
+<!-- ── PEDIDOS / CONTACTO ── -->
+<section id="pedidos">
+  <div class="section-title">¡Hacé tu <span>Pedido!</span></div>
+  <div class="divider"></div>
+  <p class="section-sub">La forma más rápida de tener tu pancho es por WhatsApp</p>
+  <div class="pedidos-inner">
+    <div class="info-block">
+      <div class="info-item">
+        <span class="icon">📍</span>
+        <span>Av. Mitre 1234, Hermoso Campo, Chaco</span>
+      </div>
+      <div class="info-item">
+        <span class="icon">🕐</span>
+        <span>Lunes a Domingo · 12:00 – 00:00 hs</span>
+      </div>
+      <div class="info-item">
+        <span class="icon">📞</span>
+        <span>+54 9 11 1234-5678</span>
+      </div>
+    </div>
+    <a href="https://wa.me/5491112345678?text=Hola!%20Quiero%20hacer%20un%20pedido%20🌭%20Vi%20su%20menú%20y%20me%20interesa" 
+       class="btn btn-primary" target="_blank" style="font-size:1.35rem;padding:1rem 2.5rem;">
+      💬 Pedir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-logo">🌭 El Rey del Pancho</div>
+  <p>Hermoso Campo, Chaco · Todos los derechos reservados © 2025</p>
+  <p style="margin-top:.5rem;font-size:.8rem;">Hecho con 🧡 y mucha mostaza</p>
+</footer>
+
+<!-- ── BOTÓN WHATSAPP FLOTANTE ── -->
+<a class="wa-btn" href="https://wa.me/5491112345678?text=Hola!%20Quiero%20hacer%20un%20pedido%20🌭" target="_blank" title="Pedir por WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span>¡Pedí ahora!</span>
+</a>
+
+<script>
+  // Fondo animado con emojis de comida
+  const emojis = ['🌭','🌭','🌭','🔥','⭐','🍟','🥤','🧂','🌶️','🧄'];
+  const bg = document.getElementById('bgPattern');
+  for(let i = 0; i < 30; i++){
+    const s = document.createElement('span');
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDuration = (12 + Math.random() * 18) + 's';
+    s.style.animationDelay = (-Math.random() * 20) + 's';
+    s.style.fontSize = (1.2 + Math.random() * 2.5) + 'rem';
+    bg.appendChild(s);
+  }
+</script>
+</body>
+</html>
